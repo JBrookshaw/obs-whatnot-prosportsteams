@@ -10,7 +10,7 @@ A lightweight OBS Browser Source overlay for showing NFL, NBA, MLB, MLS, NHL, or
 - Size selection persists across reloads using `localStorage`.
 
 ## Screenshot
-![Team Overlay Screenshot](output/playwright/overlay-screenshot.png)
+![Team Overlay Screenshot](assets/readme/overlay-screenshot.png)
 
 ## Project Structure
 - `overlay.html`: Main overlay page loaded by OBS/browser.
