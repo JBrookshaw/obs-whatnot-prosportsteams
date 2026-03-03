@@ -30,16 +30,100 @@ body {
 
 .overlay-shell {
   height: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
   padding: 0.55rem;
 }
 
+.overlay-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+}
+
+.control-label {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.reset-button {
+  border: 1px solid rgba(166, 196, 255, 0.38);
+  border-radius: 0.34rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.78rem;
+  height: 1.9rem;
+}
+
+.league-buttons,
+.size-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.league-button,
+.size-button {
+  border: 1px solid rgba(166, 196, 255, 0.38);
+  border-radius: 0.34rem;
+  color: var(--text-dim);
+  background: var(--surface-strong);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.72rem;
+  height: 1.9rem;
+  min-width: 3rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.size-button {
+  min-width: 4.1rem;
+}
+
+.league-button.active,
+.size-button.active {
+  color: var(--text);
+  border-color: rgba(90, 214, 255, 0.75);
+  background: rgba(14, 31, 56, 0.95);
+}
+
+.reset-button {
+  padding: 0 0.62rem;
+  cursor: pointer;
+}
+
+.chosen-count {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+}
+
 .sections {
+  --grid-cols: 16;
+  flex: 1;
   display: grid;
   column-gap: 0.14rem;
   row-gap: 0;
-  grid-template-columns: repeat(16, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
   align-content: start;
+}
+
+.sections.size-small {
+  --grid-cols: 21;
+}
+
+.sections.size-medium {
+  --grid-cols: 16;
+}
+
+.sections.size-large {
+  --grid-cols: 13;
 }
 
 .team-card {
@@ -80,6 +164,16 @@ body {
 
 .team-card.missing {
   border-style: dashed;
+  color: #2f3948;
+  background: #d8d2c5;
+}
+
+.team-card.missing .team-abbr {
+  display: block;
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
 }
 
 .team-logo {
@@ -98,14 +192,30 @@ body {
 }
 
 @media (max-width: 1600px) {
-  .sections {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+  .sections.size-small {
+    --grid-cols: 16;
+  }
+
+  .sections.size-medium {
+    --grid-cols: 12;
+  }
+
+  .sections.size-large {
+    --grid-cols: 10;
   }
 }
 
 @media (max-width: 1100px) {
-  .sections {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+  .sections.size-small {
+    --grid-cols: 11;
+  }
+
+  .sections.size-medium {
+    --grid-cols: 8;
+  }
+
+  .sections.size-large {
+    --grid-cols: 6;
   }
 
   .overlay-shell {
@@ -114,7 +224,25 @@ body {
 }
 
 @media (max-width: 760px) {
-  .sections {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .overlay-controls {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .chosen-count {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .sections.size-small {
+    --grid-cols: 5;
+  }
+
+  .sections.size-medium {
+    --grid-cols: 4;
+  }
+
+  .sections.size-large {
+    --grid-cols: 3;
   }
 }

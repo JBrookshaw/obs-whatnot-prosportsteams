@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NFL Team Picker Overlay</title>
+  <title>Sports Team Picker Overlay</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -11,7 +11,26 @@
 </head>
 <body>
   <main class="overlay-shell">
-    <section id="sections" class="sections" aria-label="NFL teams"></section>
+    <header class="overlay-controls" aria-label="Overlay controls">
+      <span class="control-label">League</span>
+      <div id="league-buttons" class="league-buttons" role="group" aria-label="League quick switch">
+        <button type="button" class="league-button" data-league="NFL" aria-pressed="true">NFL</button>
+        <button type="button" class="league-button" data-league="NBA" aria-pressed="false">NBA</button>
+        <button type="button" class="league-button" data-league="MLB" aria-pressed="false">MLB</button>
+        <button type="button" class="league-button" data-league="MLS" aria-pressed="false">MLS</button>
+        <button type="button" class="league-button" data-league="NHL" aria-pressed="false">NHL</button>
+        <button type="button" class="league-button" data-league="WNBA" aria-pressed="false">WNBA</button>
+      </div>
+      <span class="control-label">Size</span>
+      <div id="size-buttons" class="size-buttons" role="group" aria-label="Tile size">
+        <button type="button" class="size-button" data-size="small" aria-pressed="false">Small</button>
+        <button type="button" class="size-button" data-size="medium" aria-pressed="true">Medium</button>
+        <button type="button" class="size-button" data-size="large" aria-pressed="false">Large</button>
+      </div>
+      <button id="reset-button" class="reset-button" type="button">Reset</button>
+      <span id="chosen-count" class="chosen-count" aria-live="polite"></span>
+    </header>
+    <section id="sections" class="sections" aria-label="Teams"></section>
   </main>
 
   <script src="./overlay.js"></script>
