@@ -6,6 +6,9 @@ A lightweight OBS Browser Source overlay for showing all 32 NFL team logos in a 
 - Selected teams are grayed out.
 - Team selection persists across reloads using `localStorage`.
 
+## Screenshot
+![NFL Team Overlay Screenshot](output/playwright/overlay-screenshot.png)
+
 ## Project Structure
 - `overlay.html`: Main overlay page loaded by OBS/browser.
 - `styles.css`: Grid and tile styling.
