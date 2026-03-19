@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sports Team Picker Overlay</title>
+  <title>Sports Team Spot List</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body data-view="overlay">
+<body data-view="spot-list">
   <main class="overlay-shell">
-    <section id="sections" class="sections" aria-label="Teams"></section>
+    <section class="spot-list-panel" aria-label="Spot list">
+      <p id="spot-list-empty" class="spot-list-empty">Select teams in the picker source to add them here.</p>
+      <div id="spot-list" class="spot-list" aria-live="polite"></div>
+    </section>
   </main>
 
   <script src="./overlay.js"></script>

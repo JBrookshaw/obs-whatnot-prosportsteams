@@ -29,11 +29,10 @@ body {
 }
 
 .overlay-shell {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.32rem;
-  padding: 0.55rem;
+  gap: 0.18rem;
+  padding: 0.25rem;
 }
 
 .overlay-controls {
@@ -41,6 +40,163 @@ body {
   align-items: center;
   gap: 0.35rem;
   min-height: 2rem;
+}
+
+.obs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(166, 196, 255, 0.22);
+  border-radius: 0.48rem;
+  background: rgba(7, 13, 22, 0.74);
+  box-shadow: var(--shadow);
+}
+
+.obs-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.obs-panel-title {
+  margin: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.obs-panel-copy {
+  margin: 0.12rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  line-height: 1.15;
+}
+
+.obs-status {
+  margin: 0;
+  min-width: 11rem;
+  color: var(--text-dim);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.obs-status.is-error {
+  color: #ffb3b3;
+}
+
+.obs-connection-grid,
+.obs-sources-grid,
+.obs-source-fields,
+.obs-panel-actions,
+.obs-source-actions {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.obs-connection-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(5rem, 0.42fr) minmax(0, 1.2fr);
+}
+
+.obs-sources-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.obs-source-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid rgba(166, 196, 255, 0.18);
+  border-radius: 0.38rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.obs-source-title {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.obs-panel-actions,
+.obs-source-actions {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: start;
+}
+
+.obs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.obs-field-label {
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.obs-input {
+  width: 100%;
+  min-width: 0;
+  height: 2rem;
+  border: 1px solid rgba(166, 196, 255, 0.34);
+  border-radius: 0.34rem;
+  color: var(--text);
+  background: rgba(10, 17, 29, 0.9);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.75rem;
+  padding: 0 0.56rem;
+}
+
+.obs-input:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 1px;
+}
+
+.obs-button {
+  border: 1px solid rgba(90, 214, 255, 0.58);
+  border-radius: 0.34rem;
+  color: var(--text);
+  background: rgba(14, 31, 56, 0.95);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.72rem;
+  min-height: 1.9rem;
+  padding: 0.24rem 0.62rem;
+  cursor: pointer;
+}
+
+.obs-button-secondary {
+  border-color: rgba(166, 196, 255, 0.34);
+  background: var(--surface-strong);
+  color: var(--text-dim);
+}
+
+.obs-button:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+body[data-view="overlay"] .overlay-shell {
+  gap: 0;
+  padding: 0;
+}
+
+body[data-view="overlay"] .team-card {
+  cursor: default;
+}
+
+body[data-view="spot-list"] .spot-list-input,
+body[data-view="overlay"] .team-card {
+  pointer-events: none;
 }
 
 .control-label {
@@ -106,9 +262,8 @@ body {
 
 .sections {
   --grid-cols: 16;
-  flex: 1;
   display: grid;
-  column-gap: 0.14rem;
+  column-gap: 0.08rem;
   row-gap: 0;
   grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
   align-content: start;
@@ -124,6 +279,176 @@ body {
 
 .sections.size-large {
   --grid-cols: 13;
+}
+
+.spot-list-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding: 0.14rem 0.42rem;
+  border: 1px solid rgba(166, 196, 255, 0.22);
+  border-radius: 0.36rem;
+  background: rgba(7, 13, 22, 0.72);
+  box-shadow: var(--shadow);
+}
+
+.spot-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.spot-list-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.spot-list-toggle {
+  border: 1px solid rgba(166, 196, 255, 0.38);
+  border-radius: 0.34rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.64rem;
+  min-height: 1.55rem;
+  padding: 0.22rem 0.48rem;
+  cursor: pointer;
+}
+
+.spot-list-empty {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.spot-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.12rem 0.34rem;
+}
+
+.spot-list-item {
+  display: grid;
+  grid-template-columns: 1.88rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.24rem;
+  min-width: 0;
+  padding: 0.08rem 0.16rem;
+  border: 1px solid rgba(166, 196, 255, 0.18);
+  border-radius: 0.28rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.spot-list-logo-wrap {
+  width: 1.88rem;
+  height: 1.88rem;
+  border-radius: 0.22rem;
+  overflow: hidden;
+  background: #f6f1e5;
+  display: grid;
+  place-items: center;
+}
+
+.spot-list-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.spot-list-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(166, 196, 255, 0.34);
+  border-radius: 0.24rem;
+  color: var(--text);
+  background: rgba(10, 17, 29, 0.86);
+  font-family: "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  padding: 0.22rem 0.32rem;
+}
+
+body[data-view="spot-list"] {
+  background: transparent;
+  position: relative;
+  min-height: 100%;
+}
+
+body[data-view="spot-list"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 13, 20, 0.18);
+  backdrop-filter: blur(10px) saturate(112%);
+  -webkit-backdrop-filter: blur(10px) saturate(112%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body[data-view="spot-list"] .overlay-shell {
+  position: relative;
+  z-index: 1;
+  height: auto;
+  gap: 0;
+  padding: 10vh 10vw;
+}
+
+body[data-view="spot-list"] .spot-list-panel {
+  gap: 0.1rem;
+  padding: 0.1rem 0.2rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-view="spot-list"] .spot-list-empty {
+  font-size: 0.66rem;
+  margin-bottom: 0.08rem;
+}
+
+body[data-view="spot-list"] .spot-list {
+  grid-template-columns: repeat(var(--spot-columns, 3), minmax(0, 1fr));
+  gap: var(--spot-row-gap, 0.18rem) var(--spot-column-gap, 0.2rem);
+}
+
+body[data-view="spot-list"] .spot-list-item {
+  grid-template-columns: var(--spot-logo-size, 2.3rem) minmax(0, 1fr);
+  justify-content: stretch;
+  gap: var(--spot-item-gap, 0.28rem);
+  padding: 0.08rem 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-view="spot-list"] .spot-list-logo-wrap {
+  width: var(--spot-logo-size, 2.3rem);
+  height: var(--spot-logo-size, 2.3rem);
+  border-radius: 0.2rem;
+}
+
+body[data-view="spot-list"] .spot-list-input {
+  width: 100%;
+  min-width: 0;
+  border-radius: 0.3rem;
+  font-size: var(--spot-font-size, 0.82rem);
+  line-height: 1.15;
+  padding: var(--spot-pad-y, 0.3rem) var(--spot-pad-x, 0.42rem);
+}
+
+.spot-list-input::placeholder {
+  color: rgba(169, 191, 216, 0.7);
+}
+
+.spot-list-input:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 1px;
 }
 
 .team-card {
@@ -221,6 +546,7 @@ body {
   .overlay-shell {
     overflow: auto;
   }
+
 }
 
 @media (max-width: 760px) {
@@ -229,9 +555,46 @@ body {
     gap: 0.25rem;
   }
 
+  .obs-panel-header {
+    flex-direction: column;
+  }
+
+  .obs-status {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .obs-connection-grid,
+  .obs-sources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .obs-panel-actions,
+  .obs-source-actions {
+    grid-auto-flow: row;
+    grid-auto-columns: 1fr;
+  }
+
+  .obs-button {
+    width: 100%;
+  }
+
   .chosen-count {
     width: 100%;
     margin-left: 0;
+  }
+
+  .spot-list-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .spot-list-toggle {
+    width: 100%;
+  }
+
+  .spot-list-item {
+    grid-template-columns: 1.72rem minmax(0, 1fr);
   }
 
   .sections.size-small {
@@ -245,4 +608,16 @@ body {
   .sections.size-large {
     --grid-cols: 3;
   }
+}
+
+@media (max-width: 560px) {
+  .spot-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+}
+
+@media (max-width: 680px) {
 }

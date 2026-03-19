@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sports Team Overlay Controller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-view="controller">
+  <main class="overlay-shell">
+    <section class="obs-panel" aria-label="OBS controls">
+      <div class="obs-panel-header">
+        <div>
+          <h2 class="obs-panel-title">OBS Source Control</h2>
+          <p class="obs-panel-copy">Keep OBS pointed at the two display URLs and toggle those sources from here.</p>
+        </div>
+        <p id="obs-status" class="obs-status" aria-live="polite">OBS controls idle.</p>
+      </div>
+      <div class="obs-connection-grid">
+        <label class="obs-field">
+          <span class="obs-field-label">Host</span>
+          <input id="obs-host" class="obs-input" type="text" inputmode="url" placeholder="127.0.0.1" autocomplete="off">
+        </label>
+        <label class="obs-field">
+          <span class="obs-field-label">Port</span>
+          <input id="obs-port" class="obs-input" type="number" min="1" max="65535" placeholder="4455">
+        </label>
+        <label class="obs-field obs-field-password">
+          <span class="obs-field-label">Password</span>
+          <input id="obs-password" class="obs-input" type="password" placeholder="OBS WebSocket password" autocomplete="off">
+        </label>
+      </div>
+      <div class="obs-panel-actions">
+        <button id="obs-save-button" class="obs-button" type="button">Save OBS Settings</button>
+        <button id="obs-test-button" class="obs-button obs-button-secondary" type="button">Test Connection</button>
+      </div>
+      <div class="obs-sources-grid">
+        <section class="obs-source-card" aria-label="Team grid OBS source">
+          <h3 class="obs-source-title">Team Grid Source</h3>
+          <div class="obs-source-fields">
+            <label class="obs-field">
+              <span class="obs-field-label">Scene</span>
+              <input id="obs-overlay-scene" class="obs-input" type="text" placeholder="Main Break Scene" autocomplete="off">
+            </label>
+            <label class="obs-field">
+              <span class="obs-field-label">Source</span>
+              <input id="obs-overlay-source" class="obs-input" type="text" placeholder="Team Grid Browser Source" autocomplete="off">
+            </label>
+          </div>
+          <div class="obs-source-actions">
+            <button class="obs-button" type="button" data-obs-target="overlay" data-obs-visible="true">Show</button>
+            <button class="obs-button obs-button-secondary" type="button" data-obs-target="overlay" data-obs-visible="false">Hide</button>
+          </div>
+        </section>
+        <section class="obs-source-card" aria-label="Spot list OBS source">
+          <h3 class="obs-source-title">Spot List Source</h3>
+          <div class="obs-source-fields">
+            <label class="obs-field">
+              <span class="obs-field-label">Scene</span>
+              <input id="obs-spot-list-scene" class="obs-input" type="text" placeholder="Main Break Scene" autocomplete="off">
+            </label>
+            <label class="obs-field">
+              <span class="obs-field-label">Source</span>
+              <input id="obs-spot-list-source" class="obs-input" type="text" placeholder="Spot List Browser Source" autocomplete="off">
+            </label>
+          </div>
+          <div class="obs-source-actions">
+            <button class="obs-button" type="button" data-obs-target="spotList" data-obs-visible="true">Show</button>
+            <button class="obs-button obs-button-secondary" type="button" data-obs-target="spotList" data-obs-visible="false">Hide</button>
+          </div>
+        </section>
+      </div>
+    </section>
+    <header class="overlay-controls" aria-label="Overlay controls">
+      <span class="control-label">League</span>
+      <div id="league-buttons" class="league-buttons" role="group" aria-label="League quick switch">
+        <button type="button" class="league-button" data-league="NFL" aria-pressed="true">NFL</button>
+        <button type="button" class="league-button" data-league="NBA" aria-pressed="false">NBA</button>
+        <button type="button" class="league-button" data-league="MLB" aria-pressed="false">MLB</button>
+        <button type="button" class="league-button" data-league="MLS" aria-pressed="false">MLS</button>
+        <button type="button" class="league-button" data-league="NHL" aria-pressed="false">NHL</button>
+        <button type="button" class="league-button" data-league="WNBA" aria-pressed="false">WNBA</button>
+      </div>
+      <span class="control-label">Size</span>
+      <div id="size-buttons" class="size-buttons" role="group" aria-label="Tile size">
+        <button type="button" class="size-button" data-size="small" aria-pressed="false">Small</button>
+        <button type="button" class="size-button" data-size="medium" aria-pressed="true">Medium</button>
+        <button type="button" class="size-button" data-size="large" aria-pressed="false">Large</button>
+      </div>
+      <button id="reset-button" class="reset-button" type="button">Reset</button>
+      <span id="chosen-count" class="chosen-count" aria-live="polite"></span>
+    </header>
+    <section id="sections" class="sections" aria-label="Teams"></section>
+    <section class="spot-list-panel" aria-label="Spot list">
+      <div class="spot-list-header">
+        <h2 class="spot-list-title">Spot List</h2>
+        <button id="toggle-spot-list" class="spot-list-toggle" type="button" aria-expanded="true">Hide Spot List</button>
+      </div>
+      <p id="spot-list-empty" class="spot-list-empty">Select teams to add them to the spot list.</p>
+      <div id="spot-list" class="spot-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="./overlay.js"></script>
+</body>
+</html>
