@@ -28,6 +28,11 @@ body {
     linear-gradient(140deg, rgba(3, 6, 12, 0.38), rgba(4, 9, 16, 0.52));
 }
 
+body[data-view="controller"],
+body[data-view="overlay"] {
+  background: transparent;
+}
+
 .overlay-shell {
   display: flex;
   flex-direction: column;

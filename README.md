@@ -1,52 +1,95 @@
 # obs-whatnot-prosportsteams
 
-A lightweight OBS Browser Source overlay for showing NFL, NBA, MLB, MLS, NHL, or WNBA teams in a single square grid.
+A local web controller + overlay system for OBS that lets you pick pro sports teams (NFL, NBA, MLB, MLS, NHL, WNBA), show them in a grid, and maintain a synchronized spot list with player names.
 
-- Use the **League** buttons to switch between NFL, NBA, MLB, MLS, NHL, and WNBA.
-- Use the **Size** buttons to switch square size: Small (25% smaller), Medium (default/current), Large (25% bigger).
-- Click any team tile to toggle it as selected.
-- Selected teams are grayed out.
-- Team selection persists across reloads using `localStorage` (saved separately per league).
-- Size selection persists across reloads using `localStorage`.
+## Pages
 
-## Screenshot
-![Team Overlay Screenshot](assets/readme/overlay-screenshot.png)
+When the local server is running, these pages are available:
 
-## Project Structure
-- `overlay.html`: Main overlay page loaded by OBS/browser.
-- `styles.css`: Grid and tile styling.
-- `overlay.js`: League/team data, render logic, click handling, persistence.
-- `assets/logos/*.png`: Local NFL logo image assets.
+- `http://127.0.0.1:8080/controller.html`
+  - Full control surface.
+  - Includes team selection controls, spot list editing, and OBS source visibility controls.
+- `http://127.0.0.1:8080/overlay.html`
+  - Team grid output page for OBS Browser Source.
+  - Shows selected teams for the active league.
+- `http://127.0.0.1:8080/spot-list.html`
+  - Spot list output page for OBS Browser Source.
+  - Shows selected teams with player names entered in the controller.
 
-## Local Run
+## Quick Start
+
 No build step is required.
 
-### Option 1: Open directly
-1. Open `/Users/jeff/Documents/obs/obs-whatnot-prosportsteams/overlay.html` in a browser.
+1. Start the local server:
 
-### Option 2: Run a local web server (recommended)
-1. In Terminal:
    ```bash
    cd /Users/jeff/Documents/obs/obs-whatnot-prosportsteams
-   python3 -m http.server 8080
+   node server.js
    ```
-2. Open `http://localhost:8080/overlay.html`.
 
-## OBS Setup
-1. In OBS, add a **Browser Source**.
-2. Use one of these:
-   - **Local File**: `/Users/jeff/Documents/obs/obs-whatnot-prosportsteams/overlay.html`
-   - **URL**: `http://localhost:8080/overlay.html` (if running local server)
-3. Set Browser Source width/height to your scene resolution.
-4. Position and scale as needed in your scene.
+2. Open the controller:
 
-## Controls
-- League Buttons: Switch between NFL, NBA, MLB, MLS, NHL, and WNBA.
-- Size Buttons: `Small`, `Medium` (default), `Large`.
-- Mouse: Click a team tile to toggle selected/unselected.
-- Keyboard: Press `R` to reset all selections.
-- Reset Button: Clears selections for the active league.
+   - `http://127.0.0.1:8080/controller.html`
 
-## Notes
-- NBA, MLB, MLS, NHL, and WNBA logos are loaded from ESPN's logo CDN.
-- If OBS caches old styles, use **Refresh cache of current page** in Browser Source properties.
+## Control Panel Functionality
+
+The controller page combines OBS controls and content controls.
+
+### Team Selector Controls
+
+- **League buttons**: switch active league (NFL/NBA/MLB/MLS/NHL/WNBA).
+- **Size buttons**: change tile size (`Small`, `Medium`, `Large`) for the team grid output.
+- **Team tiles**: click to select/deselect teams.
+- **Reset button**: clears all selected teams for the active league and clears spot list player names for that league.
+- **Selected count**: shows how many teams are currently selected.
+
+### Spot List Controls
+
+- Spot list updates from selected teams in the active league.
+- Each selected team gets a text input for player name.
+- Player name edits are saved and synced to the output pages.
+- **Hide/Show Spot List** button toggles visibility in the controller.
+
+### OBS Source Control Panel
+
+- **Host / Port / Password** fields for OBS WebSocket connection settings.
+- **Save OBS Settings** stores connection + source mapping settings.
+- **Test Connection** verifies controller-to-OBS WebSocket connectivity.
+- Separate source mapping cards for:
+  - **Team Grid Source** (overlay page)
+  - **Spot List Source** (spot list page)
+- **Show / Hide** buttons send OBS WebSocket commands to toggle each configured source in its scene.
+
+## OBS WebSocket Setup (OBS 28+ / obs-websocket 5.x)
+
+1. In OBS, open **Tools -> WebSocket Server Settings**.
+2. Enable **WebSocket server**.
+3. Confirm port (default is usually `4455`).
+4. If password authentication is enabled in OBS, set/confirm the password.
+5. In this project controller (`controller.html`), enter:
+   - **Host**: usually `127.0.0.1`
+   - **Port**: your OBS WebSocket port (for example `4455`)
+   - **Password**: exactly the OBS WebSocket password (or leave blank if OBS auth is disabled)
+6. Click **Save OBS Settings**.
+7. Click **Test Connection** and confirm success status.
+8. In OBS, note your exact scene and source names for both browser sources.
+9. In the controller, enter scene/source mappings under:
+   - **Team Grid Source**
+   - **Spot List Source**
+10. Use **Show** / **Hide** to verify controller-driven visibility works.
+
+## OBS Browser Source URLs
+
+Use these in OBS Browser Source properties:
+
+- Team grid source URL: `http://127.0.0.1:8080/overlay.html`
+- Spot list source URL: `http://127.0.0.1:8080/spot-list.html`
+
+## Runtime Files
+
+The local server writes runtime state/config files in the project root:
+
+- `overlay-state.json`
+- `obs-config.json`
+
+These are local runtime artifacts used to persist selections and OBS settings.

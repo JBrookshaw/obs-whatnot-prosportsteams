@@ -523,7 +523,9 @@ function toggleTeam(teamCode, card) {
 
 function resetAll() {
   selectedTeams.clear();
+  playerAssignments = {};
   persistSelectedTeams();
+  persistPlayerAssignments();
 
   if (sectionsEl) {
     sectionsEl.querySelectorAll("[data-team]").forEach((card) => {
